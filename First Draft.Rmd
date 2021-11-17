@@ -1,0 +1,33 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Model between the response and neither of the explanatory variables 
+```{r cars}
+heart_2%>%
+  ggplot(aes(x=RestingBP))+ geom_histogram()
+```
+
+- Model between the response and the numerical explanatory variable  
+Resting BP= 105.69194+0.50176(Age)
+```{r}
+base_model1<-lm(RestingBP~Age, data=heart_2)
+summary(base_model1)
+
+ggplot(data=heart_2, aes(x=Age, y=RestingBP))+geom_point()+ geom_smooth(method="lm", se=F)
+
+```
+- Model between the response and the categorical explanatory variable   
+RestingBP = 130.1805 + 4.2692(HeartDisease)
+
+```{r pressure, echo=FALSE}
+base_model2<-lm(RestingBP~HeartDisease, data=heart_2)
+summary(base_model2)
+ggplot(data=heart_2, aes(x=HeartDisease, y=RestingBP))+geom_jitter()+geom_abline(aes(slope=4.2692, intercept=130.1805))
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
